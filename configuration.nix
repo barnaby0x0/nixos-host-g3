@@ -74,6 +74,7 @@
     directories = [
       "/var/lib/nixos"
       "/var/log"
+      "/etc/cloudflared"
     ];
 
     files = [
@@ -156,6 +157,19 @@
         type = "ed25519";
       }
     ];
+  };
+
+  systemd.services.cloudflared = {
+    description = "Cloudflare Tunnel";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+
+    serviceConfig = {
+      ExecStart = "/run/current-system/sw/bin/cloudflared tunnel run --token-file /etc/cloudflared/token";
+      Restart = "always";
+      RestartSec = "5s";
+    };
   };
 
   nix.settings.experimental-features = [
