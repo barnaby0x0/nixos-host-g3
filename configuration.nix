@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ../../modules/nixos/desktop/plasma.nix
+    ./plasma.nix
     ./disko.nix
     ./hardware-configuration.nix
   ];
