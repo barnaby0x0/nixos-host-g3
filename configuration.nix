@@ -42,9 +42,10 @@
   # };
 
   # OR use systemd
-  systemd.tmpfiles.rules = [
-    "d /home/user 0700 user users -"
-  ];
+systemd.tmpfiles.rules = [
+  "z /home/user 0700 user users -"
+  "z /nix/persist/home/user 0700 user users -"
+];
 
   # Identité et paramètres de base
   networking.hostName = "g3";
@@ -66,6 +67,8 @@
     pciutils
     usbutils
     cloudflared
+openssl
+tcpdump
   ];
 
   environment.persistence."/nix/persist" = {
@@ -105,6 +108,7 @@
       files = [
         # ".zsh_history" # unset HISTFILE before !!
         ".bash_history"
+        ".gitconfig"
       ];
     };
   };
@@ -143,6 +147,7 @@
 
   services.openssh = {
     enable = true;
+    #logLevel = "DEBUG3";
     openFirewall = true;
 
     settings = {
@@ -157,6 +162,30 @@
         type = "ed25519";
       }
     ];
+  };
+
+  services.caddy = {
+    enable = true;
+
+    package = pkgs.caddy.withPlugins {
+      plugins = [
+        "github.com/daaku/caddy-ssh@v0.10.0"
+      ];
+
+      hash = "sha256-MhzeZOj4qOIKDwGg0Poz6IAsh+OvSWxIBeSrBwU4NXo=";
+    };
+
+    virtualHosts."g3.proxlab.cc:8443" = {
+      extraConfig = ''
+        tls internal
+
+        route {
+          ssh 127.0.0.1:22
+          respond "Not found" 404
+        }
+      '';
+    };
+
   };
 
   systemd.services.cloudflared = {
