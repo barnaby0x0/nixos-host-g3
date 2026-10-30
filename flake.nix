@@ -13,10 +13,21 @@
       url = "github:nix-community/impermanence";
     };
 
+    colmena = {
+      url = "github:nix-community/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      colmena,
+      disko,
+      ...
+    }@inputs:
     let
       systems = [
         "x86_64-linux"
@@ -32,17 +43,19 @@
           }
 
         );
+        g3Modules = [
+      inputs.disko.nixosModules.disko
+          inputs.impermanence.nixosModules.impermanence
+      ./configuration.nix
+    ];
     in
     {
       nixosConfigurations.g3 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
-        modules = [
-          ./configuration.nix
-          inputs.disko.nixosModules.disko
-          inputs.impermanence.nixosModules.impermanence
-        ];
+        modules = g3Modules;
       };
+      # colmena = import ./colmena/hive.nix { inherit inputs; };
       formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

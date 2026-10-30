@@ -42,12 +42,12 @@
   # };
 
   # OR use systemd
-#  systemd.tmpfiles.rules = [
-#    "d /nix/persist/home/user 0700 user users -"
-#    "z /nix/persist/home/user 0700 user users -"
-#    "d /home/user 0700 user users -"
-#    "z /home/user 0700 user users -"
-#  ];
+  #  systemd.tmpfiles.rules = [
+  #    "d /nix/persist/home/user 0700 user users -"
+  #    "z /nix/persist/home/user 0700 user users -"
+  #    "d /home/user 0700 user users -"
+  #    "z /home/user 0700 user users -"
+  #  ];
 
   # Identité et paramètres de base
   networking.hostName = "g3";
