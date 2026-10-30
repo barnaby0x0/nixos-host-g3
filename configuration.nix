@@ -71,6 +71,7 @@
     cloudflared
     openssl
     tcpdump
+    lolcat
   ];
 
   environment.persistence."/nix/persist" = {
