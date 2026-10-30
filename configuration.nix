@@ -146,6 +146,11 @@
     ];
   };
 
+  nix.settings.trusted-users = [
+    "root"
+    "colmena"
+  ];
+
   security.sudo.extraRules = [
     {
       users = [ "colmena" ];

@@ -11,20 +11,10 @@
 
     deployment = {
       targetHost = "g3";
-      targetUser = "user";
+      targetUser = "colmena";
       allowLocalDeployment = true;
       tags = [ "workstation" ];
     };
-
-    # deployment = {
-    #   targetHost = "g3";
-    #   targetUser = "user";
-    #   privilegeEscalationCommand = [
-    #     "sudo"
-    #     "-H"
-    #     "--"
-    #   ];
-    # };
 
   };
 }
