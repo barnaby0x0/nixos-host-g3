@@ -136,6 +136,28 @@
     initialHashedPassword = "$y$j9T$TvYwvyoJ.v1jj64tTF5K61$jDWwkEw/owyBks.6xLwYIlKcLD4MJ4G062UAm757N/4";
   };
 
+  users.users.colmena = {
+    isNormalUser = true;
+    home = "/var/lib/colmena";
+    createHome = true;
+
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP1oFq0GYt8j7vg2nNAJNzwBtqrdOUDp8CMQwLRiz4Vz user@ull"
+    ];
+  };
+
+  security.sudo.extraRules = [
+    {
+      users = [ "colmena" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   security.sudo.wheelNeedsPassword = true;
 
   # KDE Plasma 6

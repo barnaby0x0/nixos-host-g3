@@ -43,11 +43,11 @@
           }
 
         );
-        g3Modules = [
-      inputs.disko.nixosModules.disko
-          inputs.impermanence.nixosModules.impermanence
-      ./configuration.nix
-    ];
+      g3Modules = [
+        inputs.disko.nixosModules.disko
+        inputs.impermanence.nixosModules.impermanence
+        ./configuration.nix
+      ];
     in
     {
       nixosConfigurations.g3 = nixpkgs.lib.nixosSystem {
@@ -55,7 +55,7 @@
 
         modules = g3Modules;
       };
-      # colmena = import ./colmena/hive.nix { inherit inputs; };
+      colmenaHive = colmena.lib.makeHive (import ./colmena/hive.nix { inherit inputs g3Modules; });
       formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

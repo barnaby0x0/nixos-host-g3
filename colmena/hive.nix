@@ -1,31 +1,30 @@
-{ inputs }:
+{ inputs, g3Modules }:
 
 {
   meta = {
-    nixpkgs = import inputs.nixpkgs {
-      system = "x86_64-linux";
-    };
+    nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
     specialArgs = { inherit inputs; };
   };
 
-  # Valeurs communes à tous les nœuds
-  defaults = { ... }: {
-    imports = [ inputs.disko.nixosModules.disko ];
-    deployment.buildOnTarget = false;
-  };
-
   g3 = { ... }: {
+    imports = g3Modules;
+
     deployment = {
-      targetHost = "g3";   # ou IP / nom SSH / Tailscale
-      targetUser = "root";       # ou "user" + allowLocalDeployment / sudo
+      targetHost = "g3";
+      targetUser = "user";
+      allowLocalDeployment = true;
       tags = [ "workstation" ];
     };
 
-    imports = [
-      ../configuration.nix
-      ../hardware-configuration.nix
-      ../disko.nix
-      ../plasma.nix
-    ];
+    # deployment = {
+    #   targetHost = "g3";
+    #   targetUser = "user";
+    #   privilegeEscalationCommand = [
+    #     "sudo"
+    #     "-H"
+    #     "--"
+    #   ];
+    # };
+
   };
 }
