@@ -71,6 +71,7 @@
     cloudflared
     openssl
     tcpdump
+    cowsay
     lolcat
   ];
 
@@ -111,8 +112,6 @@
       files = [
         ".bash_history"
         ".gitconfig"
-        ".test"
-
       ];
     };
   };

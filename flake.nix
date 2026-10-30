@@ -55,6 +55,15 @@
 
         modules = g3Modules;
       };
+      apps = forAllSystems (
+        { pkgs, system, ... }:
+        {
+          colmena = {
+            type = "app";
+            program = "${colmena.packages.${system}.colmena}/bin/colmena";
+          };
+        }
+      );
       colmenaHive = colmena.lib.makeHive (import ./colmena/hive.nix { inherit inputs g3Modules; });
       formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt);
     };
