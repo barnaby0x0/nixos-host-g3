@@ -42,10 +42,10 @@
   # };
 
   # OR use systemd
-systemd.tmpfiles.rules = [
-  "z /home/user 0700 user users -"
-  "z /nix/persist/home/user 0700 user users -"
-];
+  systemd.tmpfiles.rules = [
+    "z /home/user 0700 user users -"
+    "z /nix/persist/home/user 0700 user users -"
+  ];
 
   # Identité et paramètres de base
   networking.hostName = "g3";
@@ -67,8 +67,8 @@ systemd.tmpfiles.rules = [
     pciutils
     usbutils
     cloudflared
-openssl
-tcpdump
+    openssl
+    tcpdump
   ];
 
   environment.persistence."/nix/persist" = {
