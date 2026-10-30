@@ -73,6 +73,7 @@
     tcpdump
     cowsay
     lolcat
+    bat
   ];
 
   environment.persistence."/nix/persist" = {
