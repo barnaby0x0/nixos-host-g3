@@ -43,8 +43,10 @@
 
   # OR use systemd
   systemd.tmpfiles.rules = [
-    "z /home/user 0700 user users -"
+    "d /nix/persist/home/user 0700 user users -"
     "z /nix/persist/home/user 0700 user users -"
+    "d /home/user 0700 user users -"
+    "z /home/user 0700 user users -"
   ];
 
   # Identité et paramètres de base
