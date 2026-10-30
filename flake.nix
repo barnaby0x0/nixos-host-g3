@@ -50,6 +50,7 @@
       ];
     in
     {
+      nixosModules.g3 = g3Modules;
       nixosConfigurations.g3 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
